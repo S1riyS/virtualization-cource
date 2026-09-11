@@ -78,6 +78,11 @@
 
 #show link: set text(fill: black)
 
+#let source(path, lang) = {
+  set par(first-line-indent: 0pt, justify: false)
+  raw(read(path), lang: lang, block: true)
+}
+
 // ---------------------------------------------------------------------------
 // Титульный лист
 // ---------------------------------------------------------------------------
@@ -368,9 +373,144 @@
     caption: [Ping с Windows и tcpdump на Ubuntu: пакеты до гостя не доходят],
   ) <fig-no-link>
 
++ *Создание снимка системы*
+
+  Созданы снимки состояния Windows:
+  - «Новая OC Windows» — исходное состояние (рис. @fig-snap-new);
+  - «OC Windows+Yandex» — после установки Яндекс Браузера (рис. @fig-snap-yandex, @fig-snap-tree-yandex);
+  - «OC Windows+МойОфис» — после установки МойОфис и изменения параметров (RAM — 4096 MB, CPU — 2) (рис. @fig-snap-office, @fig-snap-hw, @fig-snap-tree-office).
+
+  #figure(
+    image("images/26_win_snapshot_new.png", width: 95%),
+    caption: [Создание снимка «Новая OC Windows»],
+  ) <fig-snap-new>
+
+  #figure(
+    image("images/27_win_snapshot_yandex.png", width: 95%),
+    caption: [Создание снимка «OC Windows+Yandex»],
+  ) <fig-snap-yandex>
+
+  #figure(
+    image("images/28_all_snapshots_after_yandex.png", width: 95%),
+    caption: [Снимки после установки Яндекс Браузера],
+  ) <fig-snap-tree-yandex>
+
+  Восстановление снимка «Новая OC Windows»: Яндекс Браузер отсутствует (рис. @fig-snap-no-yandex).
+
+  #figure(
+    image("images/29_no_yandex.png", width: 95%),
+    caption: [Состояние системы после восстановления «Новая OC Windows»],
+  ) <fig-snap-no-yandex>
+
+  #figure(
+    image("images/30_win_snapshot_myoffice.png", width: 95%),
+    caption: [Установленный МойОфис],
+  ) <fig-snap-office>
+
+  #figure(
+    image("images/31_win_more_resources.png", width: 95%),
+    caption: [Параметры ВМ: 4096 MB RAM и 2 CPU],
+  ) <fig-snap-hw>
+
+  #figure(
+    image("images/32_all_shapshots_after_myoffice.png", width: 95%),
+    caption: [Снимки после создания «OC Windows+МойОфис»],
+  ) <fig-snap-tree-office>
+
+  Восстановлен снимок «OC Windows+Yandex»: Яндекс Браузер на месте, МойОфис отсутствует (рис. @fig-snap-restored, @fig-snap-tree-final).
+
+  #figure(
+    image("images/33_yandex_snapshot_restore.png", width: 95%),
+    caption: [Состояние системы после восстановления «OC Windows+Yandex»],
+  ) <fig-snap-restored>
+
+  #figure(
+    image("images/34_all_snapshots_after_restore.png", width: 95%),
+    caption: [Итоговое дерево снимков],
+  ) <fig-snap-tree-final>
+
++ *Общая папка и буфер обмена*
+
+  На хосте создана папка `~/Public`. Она подключена как общая к обеим гостевым ОС (рис. @fig-share-win, @fig-share-ubuntu). Включён двунаправленный буфер обмена и Drag-and-Drop (рис. @fig-dnd-win, @fig-dnd-ubuntu).
+
+  #figure(
+    image("images/35_common_dir_windows.png", width: 95%),
+    caption: [Общая папка Public для Windows],
+  ) <fig-share-win>
+
+  #figure(
+    image("images/36_common_dir_ubuntu.png", width: 95%),
+    caption: [Общая папка Public для Ubuntu],
+  ) <fig-share-ubuntu>
+
+  #figure(
+    image("images/37_both_directions_windows.png", width: 95%),
+    caption: [Двунаправленный буфер обмена и Drag-and-Drop на Windows],
+  ) <fig-dnd-win>
+
+  #figure(
+    image("images/38_both_directions_ubuntu.png", width: 95%),
+    caption: [Двунаправленный буфер обмена и Drag-and-Drop на Ubuntu],
+  ) <fig-dnd-ubuntu>
+
+  Файл `test.txt` виден в Windows, Ubuntu и на хосте (рис. @fig-share-both, @fig-share-host). Буфер обмена синхронизирован (рис. @fig-clip).
+
+  #figure(
+    image("images/39_both_os_see_shared_dir.png", width: 95%),
+    caption: [Общий файл test.txt в гостевых ОС],
+  ) <fig-share-both>
+
+  #figure(
+    image("images/40_host_os_see_shared_dir.png", width: 95%),
+    caption: [Содержимое Public на хосте],
+  ) <fig-share-host>
+
+  #figure(
+    image("images/41_shared_clipboard.png", width: 95%),
+    caption: [Проверка общего буфера обмена],
+  ) <fig-clip>
+
++ *Управление виртуальными машинами через командную строку*
+
+  Для управления ВМ использовалась утилита VBoxManage.
+
+  #figure(
+    image("images/42_vbox_list_vms.png", width: 95%),
+    caption: [Просмотр списка машин],
+  ) <fig-vbox-list>
+
+  #figure(
+    image("images/43_vbox_startvm.png", width: 95%),
+    caption: [Запуск виртуальной машины по имени],
+  ) <fig-vbox-start>
+
+  #figure(
+    image("images/44_vbox_list_running_vms.png", width: 95%),
+    caption: [Просмотр работающих ВМ],
+  ) <fig-vbox-running>
+
+  #figure(
+    image("images/45_vbox_showvminfo.png", width: 95%),
+    caption: [Просмотр информации о ВМ],
+  ) <fig-vbox-info>
+
+  Запуск по UUID выполняется командой `VBoxManage startvm {UUID}`. Скрипт запуска ВМ:
+
+  #source("scripts/vms.sh", "bash")
+
+  Результат работы скрипта: запуск ВМ по отдельности и повторный запуск уже работающих машин (рис. @fig-vbox-script).
+
+  #figure(
+    image("images/46_vbox_script_demo.png", width: 95%),
+    caption: [Запуск виртуальных машин скриптом vms.sh],
+  ) <fig-vbox-script>
+
 = Заключение
++ Установлены и настроены гипервизор Oracle VM VirtualBox и пакет расширений Extension Pack.
++ Развёрнуты гостевые ОС Windows 10 (`WS_AKK_win`) и Ubuntu (`WS_AKK_ubuntu`).
++ Изучены режимы сети: внутренняя сеть, виртуальный адаптер хоста, NAT и сеть NAT.
++ Освоены снимки состояния, общие папки, буфер обмена и управление через VBoxManage.
 + Цель работы достигнута.
-+ Кратко перечислите полученные результаты.
 
 = Литература
 + ГОСТ 7.32—2001. Отчёт о научно-исследовательской работе. Структура и правила оформления.
