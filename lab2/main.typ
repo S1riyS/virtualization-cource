@@ -441,7 +441,14 @@ libvirt — унифицированная библиотека управлен
 
 + *Создание виртуальной машины*
 
-  В virt-manager создана машина `AKK-P3418`. Она запущена, статус `Running (Booted)`. Гипервизор — KVM, архитектура x86_64, эмулятор `/usr/bin/qemu-system-x86_64`, чипсет Q35, прошивка BIOS (рис. @fig-vmm-vm).
+  Машина собрана в мастере virt-manager. На последнем шаге (5 из 5), до начала установки, заданы имя `AKK-P3418`, ОС Fedora, установка с локального CDROM/ISO, 2048 МиБ памяти, 2 процессора и диск qcow2 объёмом 7,0 ГиБ — файл `AKK-P3418.qcow2` в каталоге образов libvirt. Флажок «Customize configuration before install» оставлен снятым (рис. @fig-vmm-new).
+
+  #figure(
+    image("images/44_vmm_new.png", width: 95%),
+    caption: [Параметры машины AKK-P3418 перед началом установки в virt-manager],
+  ) <fig-vmm-new>
+
+  После создания машина запущена, статус `Running (Booted)`. Гипервизор — KVM, архитектура x86_64, эмулятор `/usr/bin/qemu-system-x86_64`, чипсет Q35, прошивка BIOS (рис. @fig-vmm-vm).
 
   #figure(
     image("images/29_vmm_vm.png", width: 95%),
