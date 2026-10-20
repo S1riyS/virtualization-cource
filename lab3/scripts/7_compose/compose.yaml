@@ -1,0 +1,53 @@
+name: lab3
+
+services:
+  db:
+    image: mariadb:11
+    container_name: lab3-db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: lab3-root
+      MARIADB_DATABASE: nextcloud
+      MARIADB_USER: nextcloud
+      MARIADB_PASSWORD: nextcloud
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    image: nextcloud:apache
+    container_name: lab3-nextcloud
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
+      NEXTCLOUD_ADMIN_USER: ankudinov
+      NEXTCLOUD_ADMIN_PASSWORD: lab3-ankudinov
+      NEXTCLOUD_TRUSTED_DOMAINS: localhost localhost:2022
+      APACHE_DISABLE_REWRITE_IP: 1
+    volumes:
+      - nextcloud_html:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    image: nginx:alpine
+    container_name: lab3-proxy
+    restart: unless-stopped
+    ports:
+      - "2022:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro,Z
+    depends_on:
+      - app
+
+volumes:
+  db_data:
+  nextcloud_html:
