@@ -1,0 +1,18 @@
+<domain type='kvm'>
+    <name>Belozubov</name>
+    <memory unit='GiB'>3</memory>
+    <vcpu>3</vcpu>
+    <os>
+        <type arch='x86_64' machine='pc'>hvm</type>
+        <boot dev='cdrom' />
+    </os>
+    <devices>
+        <disk type='file' device='cdrom'>
+            <driver name='qemu' type='raw' />
+            <source file='/home/kirill/Fedora-Xfce-Live-43-1.6.x86_64.iso' />
+            <target dev='sda' bus='sata' />
+            <readonly />
+        </disk>
+        <graphics type='vnc' port='-1' autoport='yes' />
+    </devices>
+</domain>
