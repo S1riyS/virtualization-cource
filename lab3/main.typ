@@ -185,121 +185,242 @@
 + Добавить в проект Compose сервис Portainer и описать его возможности мониторинга и администрирования.
 
 = Выполнение
-// Скриншоты — в каталог images/. Вставка:
-// #figure(
-//   image("images/имя.png", width: 95%),
-//   caption: [Подпись],
-// ) <fig-id>
-// Команды давать блоком ```bash ... ``` или через #source("scripts/файл.sh", "bash").
-// Dockerfile и compose-файл класть в scripts/.
 
-== Установка и проверка
-+ *Установка Docker и VirtualBox*
+== Установка
++ *Docker и VirtualBox*
 
-  // Unix-система предыдущих работ: Fedora-хост с VirtualBox и гостевая Ubuntu.
-  // VirtualBox уже установлен на хосте в лабораторной 1 — показать версию.
-  // Docker ставится там, где выполняются остальные пункты.
-  // Если команды требуют sudo, добавить пользователя в группу docker и перелогиниться:
-  // sudo usermod -aG docker $USER
+  Установлены Docker и VirtualBox. Пользователь входит в группы `docker` и `vboxusers`, команды Docker выполняются без sudo (рис. @fig-versions).
 
-+ *Версия клиента и первый контейнер*
+  #figure(
+    image("images/1_versions.png", width: 85%),
+    caption: [Установлены Docker и VirtualBox],
+  ) <fig-versions>
 
-  // docker --version
-  // В задании вторая команда записана так: docker run Hello-Ваша_Фамилия
-  // Фамилия — Анкудинов, то есть docker run Hello-Анкудинов.
-  // Если реестр не отдаёт образ с таким именем, в отчёте показать фактическую команду
-  // и пояснить, куда подставлено имя: --name контейнера или тег своего образа.
+== Тестовый контейнер
++ *Запуск hello-ankudinov*
+
+  Команда `docker run hello-ankudinov` завершилась ошибкой: такого образа в реестре нет (рис. @fig-hello-fail).
+
+  #figure(
+    image("images/2_hello_fail.png", width: 95%),
+    caption: [Неудачная попытка запустить контейнер hello-ankudinov],
+  ) <fig-hello-fail>
+
+  Образ собран из Dockerfile. Контейнер печатает приветствие и завершается (рис. @fig-hello-dockerfile, @fig-hello-run).
+
+  #figure(
+    image("images/3_hello_dockerfile.png", width: 80%),
+    caption: [Dockerfile образа hello-ankudinov],
+  ) <fig-hello-dockerfile>
+
+  #figure(
+    image("images/4_hello_run.png", width: 95%),
+    caption: [Сборка образа и запуск контейнера],
+  ) <fig-hello-run>
 
 == Веб-сервер
-+ *Контейнер Apache2 или Nginx*
++ *Nginx и страница со сведениями*
 
-  // Готовый образ, например httpd или nginx. Зафиксировать, какой выбран.
+  Подготовлены страница со сведениями об Анкудинове К. К. и конфигурация Nginx на порту 8080 (рис. @fig-nginx-files). Dockerfile на базе `nginx:alpine` копирует их в образ (рис. @fig-nginx-dockerfile).
 
-+ *Dockerfile*
+  #figure(
+    image("images/5_nginx_files.png", width: 95%),
+    caption: [Страница index.html и конфигурация Nginx],
+  ) <fig-nginx-files>
 
-  // Порт 8080.
-  // «Рабочий каталог на хосте /home/www/html» — каталог машины, который монтируется в контейнер.
-  // WORKDIR в Dockerfile задаёт каталог внутри образа, это другая настройка.
-  // В образ добавляется HTML-страница со сведениями об Анкудинове К. К.
-  // CMD или ENTRYPOINT при старте поднимает сервер и отдаёт эту страницу.
-  // Файл — scripts/Dockerfile, в отчёт через #source("scripts/Dockerfile", "dockerfile").
+  #figure(
+    image("images/6_nginx_dockerfile.png", width: 95%),
+    caption: [Dockerfile образа lab3-web],
+  ) <fig-nginx-dockerfile>
+
+  Образ `lab3-web` собран. Контейнер запущен с каталогом хоста `/home/www/html` и портом 8080. Страница открывается по адресу http://localhost:8080 (рис. @fig-nginx-build, @fig-nginx-page).
+
+  #figure(
+    image("images/7_nginx_build.png", width: 95%),
+    caption: [Сборка образа lab3-web],
+  ) <fig-nginx-build>
+
+  #figure(
+    image("images/8_nginx_page.png", width: 95%),
+    caption: [Страница по адресу http://localhost:8080],
+  ) <fig-nginx-page>
 
 == MariaDB
-+ *Запуск сервера базы*
++ *База ankudinov*
 
-  // Образ MariaDB.
-  // Каталог данных на хосте: /home/DB.
-  // Порт по умолчанию у MariaDB — 3306, его и публиковать.
+  Запущен контейнер MariaDB: порт 3306, данные в каталоге хоста `/home/DB` (рис. @fig-mariadb-run). Через терминал создана база `ankudinov` (рис. @fig-mariadb-create). Файлы базы лежат в смонтированном каталоге (рис. @fig-mariadb-dir).
 
-+ *Подключение и база с фамилией*
+  #figure(
+    image("images/9_mariadb_run.png", width: 95%),
+    caption: [Запуск контейнера MariaDB],
+  ) <fig-mariadb-run>
 
-  // Вход из терминала, например docker exec -it <контейнер> mariadb -u ...
-  // CREATE DATABASE с фамилией. Кириллицу в имени базы лучше не использовать: ankudinov.
+  #figure(
+    image("images/10_mariadb_create.png", width: 95%),
+    caption: [Создание базы данных ankudinov],
+  ) <fig-mariadb-create>
+
+  #figure(
+    image("images/11_mariadb_dir.png", width: 95%),
+    caption: [Содержимое каталога /home/DB],
+  ) <fig-mariadb-dir>
 
 == Nextcloud
-+ *Образ с Docker Hub*
++ *Пользователи на порту 8088*
 
-  // Официальный образ nextcloud. Порт хоста 8088.
-  // Каталог на хосте: /home/www/NextCloud.
+  Образ Nextcloud скачан с Docker Hub. Контейнер слушает порт 8088, каталог хоста — `/home/www/NextCloud` (рис. @fig-nextcloud-run). Зарегистрированы Анкудинов Кирилл Константинович и Белозубов Александр Владимирович (рис. @fig-nextcloud-ankudinov, @fig-nextcloud-belozubov, @fig-nextcloud-users).
 
-+ *Пользователи*
+  #figure(
+    image("images/12_nextcloud_run.png", width: 95%),
+    caption: [Запуск контейнера Nextcloud],
+  ) <fig-nextcloud-run>
 
-  // Двое: Анкудинов К. К. и преподаватель Белозубов А. В.
-  // Скриншот списка пользователей или экрана после входа.
+  #figure(
+    image("images/13_nextcloud_ankudinov.png", width: 75%),
+    caption: [Создание учётной записи Анкудинова К. К.],
+  ) <fig-nextcloud-ankudinov>
+
+  #figure(
+    image("images/14_nextcloud_belozubov.png", width: 75%),
+    caption: [Создание учётной записи Белозубова А. В.],
+  ) <fig-nextcloud-belozubov>
+
+  #figure(
+    image("images/15_nextcloud_users.png", width: 95%),
+    caption: [Список пользователей Nextcloud],
+  ) <fig-nextcloud-users>
 
 == phpVirtualBox
-+ *Запуск контейнера*
++ *Веб-интерфейс VirtualBox*
 
-  // Образ phpVirtualBox с Docker Hub. В отчёте указать фактическое имя образа.
-  // phpVirtualBox — веб-интерфейс к VirtualBox, ему нужен vboxwebsrv на той машине,
-  // где установлен VirtualBox. В этой серии работ VirtualBox стоит на Fedora-хосте.
-  // Если контейнеры запускаются в гостевой Ubuntu, зафиксировать, как интерфейс
-  // добирается до VirtualBox хоста, либо что VirtualBox поднят отдельно в госте.
+  Запущена служба `vboxwebsrv` (рис. @fig-vboxwebsrv). Контейнер `joweisberg/phpvirtualbox` слушает порт 8081 (рис. @fig-phpvirtualbox-run). Вход в интерфейс — `admin` / `admin` (рис. @fig-phpvirtualbox-login). В списке видны машины VirtualBox хоста (рис. @fig-phpvirtualbox-ui).
+
+  #figure(
+    image("images/16_vboxwebsrv.png", width: 95%),
+    caption: [Запуск веб-службы VirtualBox],
+  ) <fig-vboxwebsrv>
+
+  #figure(
+    image("images/17_phpvirtualbox_run.png", width: 95%),
+    caption: [Запуск образа phpVirtualBox],
+  ) <fig-phpvirtualbox-run>
+
+  #figure(
+    image("images/18_phpvirtualbox_login.png", width: 90%),
+    caption: [Вход в phpVirtualBox],
+  ) <fig-phpvirtualbox-login>
+
+  #figure(
+    image("images/19_phpvirtualbox_ui.png", width: 95%),
+    caption: [Веб-интерфейс phpVirtualBox],
+  ) <fig-phpvirtualbox-ui>
 
 == Docker Compose
-+ *Nextcloud, веб-сервер и MariaDB*
++ *Nextcloud, Nginx и MariaDB*
 
-  // Один compose-файл: сервис Nextcloud, сервис Apache2 или Nginx и сервис MariaDB.
-  // Сервисы одной сети Compose видят друг друга по имени.
-  // Доступ к Nextcloud с хоста — порт 2022.
-  // Файл — scripts/compose.yaml, в отчёт через #source("scripts/compose.yaml", "yaml").
-  // Подъём: docker compose up -d. В отчёте — ps и открытый интерфейс Nextcloud.
+  Проект описывает три сервиса: MariaDB, Nextcloud и Nginx. Nextcloud подключён к каталогу `/home/www/NextCloud`, с хоста он открывается через Nginx на порту 2022 (рис. @fig-compose-file).
+
+  #figure(
+    image("images/20_compose_file.png", width: 80%),
+    caption: [Файл compose.yaml],
+  ) <fig-compose-file>
+
+  Сервисы запущены (рис. @fig-compose-ps). По адресу http://localhost:2022 открывается тот же Nextcloud: в списке пользователи, зарегистрированные ранее (рис. @fig-compose-nextcloud, @fig-compose-users).
+
+  #figure(
+    image("images/21_compose_ps.png", width: 95%),
+    caption: [Состояние сервисов Compose],
+  ) <fig-compose-ps>
+
+  #figure(
+    image("images/22_compose_nextcloud.png", width: 70%),
+    caption: [Nextcloud по адресу http://localhost:2022],
+  ) <fig-compose-nextcloud>
+
+  #figure(
+    image("images/23_compose_users.png", width: 95%),
+    caption: [Пользователи Nextcloud в проекте Compose],
+  ) <fig-compose-users>
 
 == Docker Hub
 + *Регистрация*
 
-  // Учётная запись на https://hub.docker.com. Скриншот профиля.
-  // Логин в клиенте: docker login.
+  Создана учётная запись на Docker Hub (рис. @fig-dockerhub).
 
-+ *Публикация проекта*
+  #figure(
+    image("images/24_dockerhub_profile.png", width: 85%),
+    caption: [Профиль на Docker Hub],
+  ) <fig-dockerhub>
 
-  // Свой образ (веб-страница из Dockerfile или собранный проект) отправляется в реестр:
-  // docker tag и docker push. Имя репозитория — учётная запись на Hub.
++ *Публикация образа*
 
-+ *Чужое приложение с Hub*
+  Образ `lab3-web` помечен тегом и отправлен в репозиторий `s1riys/lab3-web` (рис. @fig-docker-push). Репозиторий виден в профиле (рис. @fig-dockerhub-repo).
 
-  // Скачать и запустить игру 2048 или Mine. Показать, что контейнер пришёл из реестра, а не из локальной сборки.
+  #figure(
+    image("images/25_docker_push.png", width: 95%),
+    caption: [Публикация образа lab3-web],
+  ) <fig-docker-push>
+
+  #figure(
+    image("images/26_dockerhub_repo.png", width: 85%),
+    caption: [Опубликованный образ на Docker Hub],
+  ) <fig-dockerhub-repo>
+
+== Игра с Docker Hub
++ *Minesweeper*
+
+  Скачан и запущен образ `ghcr.io/bhb603/minesweeper-cli` (рис. @fig-minesweeper).
+
+  #figure(
+    image("images/27_minesweeper.png", width: 90%),
+    caption: [Скачивание и запуск игры minesweeper],
+  ) <fig-minesweeper>
 
 == Команды Docker
-+ *Команды, использованные в работе*
+В ходе выполнения лабораторной работы были применены следующие команды Docker для управления контейнерами, образами и многоконтейнерными приложениями.
 
-  // Не справочник целиком, а те команды, которые реально встретились.
-  // В задании отдельно перечислены группы docker container и docker image:
-  // create, start, run, ls, inspect, logs, stop, kill, rm;
-  // build, push, pull, ls, history, inspect, rm, images.
-  // К каждой использованной — что она сделала в этой работе.
+Команды для управления контейнерами:
 
-== Portainer
-+ *Сервис в проекте Compose*
+- `docker create` — создаёт контейнер из образа без его запуска
+- `docker start` — запускает ранее созданный или остановленный контейнер
+- `docker run` — создаёт и сразу запускает новый контейнер из образа
+- `docker stop` — останавливает контейнер, отправляя сигнал завершения (SIGTERM)
+- `docker kill` — принудительно завершает работу контейнера, отправляя сигнал SIGKILL
+- `docker rm` — удаляет остановленный контейнер из системы
+- `docker ps` — отображает список только запущенных контейнеров
+- `docker ps -a` — отображает все контейнеры, включая остановленные
+- `docker inspect` — выводит подробную информацию о контейнере
+- `docker logs` — показывает журнал (логи) работы контейнера
+- `docker exec` — выполняет указанную команду внутри уже запущенного контейнера
+- `docker system df` — отображает использование дискового пространства Docker
+- `docker volume ls` — перечисляет все тома, созданные Docker
+- `docker network ls` — перечисляет все сети, управляемые Docker
+- `docker version` — показывает версии Docker Engine и других компонентов
+- `docker info` — выводит подробную информацию о конфигурации и состоянии Docker-окружения
 
-  // Добавить Portainer в тот же compose-файл.
-  // Установка сервера описана здесь:
-  // https://docs.portainer.io/start/install-ce/server/docker/linux#docker-run
-  // В отчёте — что видно в интерфейсе: контейнеры, образы, тома, сети, журналы.
-  // Отдельным абзацем: чем веб-интерфейс удобнее одной командной строки
-  // для мониторинга и администрирования.
+Команды для управления образами:
+
+- `docker build` — собирает образ на основе инструкций из файла Dockerfile
+- `docker pull` — загружает образ из реестра
+- `docker push` — отправляет локальный образ в удалённый реестр
+- `docker images` (или `docker image ls`) — отображает список всех локальных образов
+- `docker image inspect` — выводит детальную информацию о метаданных и конфигурации образа
+- `docker rmi` (или `docker image rm`) — удаляет указанный образ из локального хранилища
+- `docker login` — выполняет аутентификацию в Docker Hub или другом реестре контейнеров
+
+Команды Docker Compose:
+
+- `docker compose up` — создаёт и запускает все сервисы, описанные в файле `compose.yaml`
+- `docker compose down` — останавливает и удаляет контейнеры, сети и тома, созданные через `docker compose up`
+- `docker compose ps` — отображает статус всех сервисов в проекте
+- `docker compose logs` — выводит журналы всех запущенных сервисов
+- `docker compose build` — пересобирает образы, указанные в конфигурации Compose
 
 = Заключение
-// Пишется после выполнения: какие контейнеры запущены, что собрано в Compose,
-// что опубликовано на Docker Hub и чем Portainer дополняет командную строку.
-// Цель из введения пересказать как достигнутую.
+В ходе лабораторной работы освоен полный цикл работы с Docker — от базовых операций до запуска нескольких связанных контейнеров. Сначала проверены клиент и VirtualBox, затем собран образ `hello-ankudinov`. Дальше практика включала создание Dockerfile, сборку образа и развёртывание веб-сервера Nginx со страницей Анкудинова К. К. на порту 8080. Каталог хоста `/home/www/html` был смонтирован в контейнер.
+
+Отдельно подняты MariaDB с базой `ankudinov` в каталоге `/home/DB` и Nextcloud с Docker Hub на порту 8088. В Nextcloud зарегистрированы Анкудинов Кирилл Константинович и Белозубов Александр Владимирович, данные сохранены в `/home/www/NextCloud`. Через phpVirtualBox открыт веб-интерфейс VirtualBox хоста: в списке видны машины, созданные ранее.
+
+Основной акцент сделан на Docker Compose. Развёрнут проект из Nginx, MariaDB и Nextcloud: сервисы связаны одной сетью, для Nextcloud назначен порт 2022, а том указывает на уже заполненный каталог `/home/www/NextCloud`, поэтому ранее созданные пользователи доступны и в этом проекте.
+
+Завершающим этапом стала публикация собственного образа `lab3-web` в реестре Docker Hub под именем `s1riys/lab3-web`. Из реестра скачана и запущена игра minesweeper. Таким образом отработаны создание образов, запуск контейнеров, настройка портов и томов и сборка многоконтейнерного приложения.
