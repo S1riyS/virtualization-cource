@@ -1,2 +1,2 @@
-virsh define belozaunov.xml
-virsh start Belozaunov
+virsh define belozubov.xml
+virsh start Belozubov
