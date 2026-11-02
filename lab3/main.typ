@@ -189,7 +189,7 @@
 == Установка
 + *Docker и VirtualBox*
 
-  Установлены Docker и VirtualBox. Пользователь входит в группы `docker` и `vboxusers`, команды Docker выполняются без sudo (рис. @fig-versions).
+  Установлены Docker и VirtualBox. Пользователь входит в группы `docker` и `vboxusers`, команды Docker выполняются без sudo (@fig-versions).
 
   #figure(
     image("images/1_versions.png", width: 85%),
@@ -199,14 +199,14 @@
 == Тестовый контейнер
 + *Запуск hello-ankudinov*
 
-  Команда `docker run hello-ankudinov` завершилась ошибкой: такого образа в реестре нет (рис. @fig-hello-fail).
+  Команда `docker run hello-ankudinov` завершилась ошибкой: такого образа в реестре нет (@fig-hello-fail).
 
   #figure(
     image("images/2_hello_fail.png", width: 95%),
     caption: [Неудачная попытка запустить контейнер hello-ankudinov],
   ) <fig-hello-fail>
 
-  Образ собран из Dockerfile. Контейнер печатает приветствие и завершается (рис. @fig-hello-dockerfile, @fig-hello-run).
+  Образ собран из Dockerfile. Контейнер печатает приветствие и завершается (@fig-hello-dockerfile, @fig-hello-run).
 
   #figure(
     image("images/3_hello_dockerfile.png", width: 80%),
@@ -221,7 +221,7 @@
 == Веб-сервер
 + *Nginx и страница со сведениями*
 
-  Подготовлены страница со сведениями об Анкудинове К. К. и конфигурация Nginx на порту 8080 (рис. @fig-nginx-files). Dockerfile на базе `nginx:alpine` копирует их в образ (рис. @fig-nginx-dockerfile).
+  Подготовлены страница со сведениями об Анкудинове К. К. и конфигурация Nginx на порту 8080 (@fig-nginx-files). Dockerfile на базе `nginx:alpine` копирует их в образ (@fig-nginx-dockerfile).
 
   #figure(
     image("images/5_nginx_files.png", width: 95%),
@@ -233,7 +233,7 @@
     caption: [Dockerfile образа lab3-web],
   ) <fig-nginx-dockerfile>
 
-  Образ `lab3-web` собран. Контейнер запущен с каталогом хоста `/home/www/html` и портом 8080. Страница открывается по адресу http://localhost:8080 (рис. @fig-nginx-build, @fig-nginx-page).
+  Образ `lab3-web` собран. Контейнер запущен с каталогом хоста `/home/www/html` и портом 8080. Страница открывается по адресу http://localhost:8080 (@fig-nginx-build, @fig-nginx-page).
 
   #figure(
     image("images/7_nginx_build.png", width: 95%),
@@ -248,7 +248,7 @@
 == MariaDB
 + *База ankudinov*
 
-  Запущен контейнер MariaDB: порт 3306, данные в каталоге хоста `/home/DB` (рис. @fig-mariadb-run). Через терминал создана база `ankudinov` (рис. @fig-mariadb-create). Файлы базы лежат в смонтированном каталоге (рис. @fig-mariadb-dir).
+  Запущен контейнер MariaDB: порт 3306, данные в каталоге хоста `/home/DB` (@fig-mariadb-run). Через терминал создана база `ankudinov` (@fig-mariadb-create). Файлы базы лежат в смонтированном каталоге (@fig-mariadb-dir).
 
   #figure(
     image("images/9_mariadb_run.png", width: 95%),
@@ -268,7 +268,7 @@
 == Nextcloud
 + *Пользователи на порту 8088*
 
-  Образ Nextcloud скачан с Docker Hub. Контейнер слушает порт 8088, каталог хоста — `/home/www/NextCloud` (рис. @fig-nextcloud-run). Зарегистрированы Анкудинов Кирилл Константинович и Белозубов Александр Владимирович (рис. @fig-nextcloud-ankudinov, @fig-nextcloud-belozubov, @fig-nextcloud-users).
+  Образ Nextcloud скачан с Docker Hub. Контейнер слушает порт 8088, каталог хоста — `/home/www/NextCloud` (@fig-nextcloud-run). Зарегистрированы Анкудинов Кирилл Константинович и Белозубов Александр Владимирович (@fig-nextcloud-ankudinov, @fig-nextcloud-belozubov, @fig-nextcloud-users).
 
   #figure(
     image("images/12_nextcloud_run.png", width: 95%),
@@ -293,7 +293,7 @@
 == phpVirtualBox
 + *Веб-интерфейс VirtualBox*
 
-  Запущена служба `vboxwebsrv` (рис. @fig-vboxwebsrv). Контейнер `joweisberg/phpvirtualbox` слушает порт 8081 (рис. @fig-phpvirtualbox-run). Вход в интерфейс — `admin` / `admin` (рис. @fig-phpvirtualbox-login). В списке видны машины VirtualBox хоста (рис. @fig-phpvirtualbox-ui).
+  Запущена служба `vboxwebsrv` (@fig-vboxwebsrv). Контейнер `joweisberg/phpvirtualbox` слушает порт 8081 (@fig-phpvirtualbox-run). Вход в интерфейс — `admin` / `admin` (@fig-phpvirtualbox-login). В списке видны машины VirtualBox хоста (@fig-phpvirtualbox-ui).
 
   #figure(
     image("images/16_vboxwebsrv.png", width: 95%),
@@ -318,14 +318,14 @@
 == Docker Compose
 + *Nextcloud, Nginx и MariaDB*
 
-  Проект описывает три сервиса: MariaDB, Nextcloud и Nginx. Nextcloud подключён к каталогу `/home/www/NextCloud`, с хоста он открывается через Nginx на порту 2022 (рис. @fig-compose-file).
+  Проект описывает три сервиса: MariaDB, Nextcloud и Nginx. Nextcloud подключён к каталогу `/home/www/NextCloud`, с хоста он открывается через Nginx на порту 2022 (@fig-compose-file).
 
   #figure(
     image("images/20_compose_file.png", width: 80%),
     caption: [Файл compose.yaml],
   ) <fig-compose-file>
 
-  Сервисы запущены (рис. @fig-compose-ps). По адресу http://localhost:2022 открывается тот же Nextcloud: в списке пользователи, зарегистрированные ранее (рис. @fig-compose-nextcloud, @fig-compose-users).
+  Сервисы запущены (@fig-compose-ps). По адресу http://localhost:2022 открывается тот же Nextcloud: в списке пользователи, зарегистрированные ранее (@fig-compose-nextcloud, @fig-compose-users).
 
   #figure(
     image("images/21_compose_ps.png", width: 95%),
@@ -345,7 +345,7 @@
 == Docker Hub
 + *Регистрация*
 
-  Создана учётная запись на Docker Hub (рис. @fig-dockerhub).
+  Создана учётная запись на Docker Hub (@fig-dockerhub).
 
   #figure(
     image("images/24_dockerhub_profile.png", width: 85%),
@@ -354,7 +354,7 @@
 
 + *Публикация образа*
 
-  Образ `lab3-web` помечен тегом и отправлен в репозиторий `s1riys/lab3-web` (рис. @fig-docker-push). Репозиторий виден в профиле (рис. @fig-dockerhub-repo).
+  Образ `lab3-web` помечен тегом и отправлен в репозиторий `s1riys/lab3-web` (@fig-docker-push). Репозиторий виден в профиле (@fig-dockerhub-repo).
 
   #figure(
     image("images/25_docker_push.png", width: 95%),
@@ -369,7 +369,7 @@
 == Игра с Docker Hub
 + *Minesweeper*
 
-  Скачан и запущен образ `ghcr.io/bhb603/minesweeper-cli` (рис. @fig-minesweeper).
+  Скачан и запущен образ `ghcr.io/bhb603/minesweeper-cli` (@fig-minesweeper).
 
   #figure(
     image("images/27_minesweeper.png", width: 90%),
