@@ -187,14 +187,14 @@
 == Подготовка окружения
 + *Добавление жёсткого диска*
 
-  К машине `WS_AKK_ubuntu` добавлен жёсткий диск SATA объёмом 30 ГБ (рис. @fig-sata-disk).
+  К машине `WS_AKK_ubuntu` добавлен жёсткий диск SATA объёмом 30 ГБ (@fig-sata-disk).
 
   #figure(
     image("images/1_sata_disk.png", width: 95%),
     caption: [Создание виртуального жёсткого диска SATA объёмом 30 ГБ],
   ) <fig-sata-disk>
 
-  В Ubuntu диск `/dev/sdb` отформатирован в Ext4 и смонтирован в `/run/media/kirill/data` (рис. @fig-disk-mounted).
+  В Ubuntu диск `/dev/sdb` отформатирован в Ext4 и смонтирован в `/run/media/kirill/data` (@fig-disk-mounted).
 
   #figure(
     image("images/2_disk_mounted.png", width: 95%),
@@ -203,14 +203,14 @@
 
 + *Проверка конфигурации процессора и ускорения*
 
-  Во вкладке «Процессор» включены PAE/NX и Nested VT-x/AMD-V (рис. @fig-cpu).
+  Во вкладке «Процессор» включены PAE/NX и Nested VT-x/AMD-V (@fig-cpu).
 
   #figure(
     image("images/3_cpu.png", width: 95%),
     caption: [Настройки процессора: Nested VT-x/AMD-V включён],
   ) <fig-cpu>
 
-  Во вкладке «Ускорение» включён Nested Paging (рис. @fig-accel).
+  Во вкладке «Ускорение» включён Nested Paging (@fig-accel).
 
   #figure(
     image("images/4_acceleration.png", width: 95%),
@@ -219,14 +219,14 @@
 
 + *Общая папка Soft*
 
-  Папка `/home/s1riys/Soft` подключена к гостевой машине с полным доступом и автоподключением (рис. @fig-share-vbox).
+  Папка `/home/s1riys/Soft` подключена к гостевой машине с полным доступом и автоподключением (@fig-share-vbox).
 
   #figure(
     image("images/5_shared_folder_vbox.png", width: 95%),
     caption: [Общая папка Soft в настройках VirtualBox],
   ) <fig-share-vbox>
 
-  В Ubuntu она смонтирована в `/media/sf_Soft`. Файл `test.txt` виден и на хосте, и в гостевой ОС (рис. @fig-share-file).
+  В Ubuntu она смонтирована в `/media/sf_Soft`. Файл `test.txt` виден и на хосте, и в гостевой ОС (@fig-share-file).
 
   #figure(
     image("images/6_shared_folder_file.png", width: 95%),
@@ -235,7 +235,7 @@
 
 + *Загрузка дистрибутива*
 
-  С http://mirror.yandex.ru загружен Live-образ `Fedora-Xfce-Live-43-1.6.x86_64.iso` (рис. @fig-iso).
+  С http://mirror.yandex.ru загружен Live-образ `Fedora-Xfce-Live-43-1.6.x86_64.iso` (@fig-iso).
 
   #figure(
     image("images/7_iso.png", width: 95%),
@@ -256,7 +256,7 @@
 
 + *Создание виртуальной машины и запуск LiveCD*
 
-  В Boxes создана виртуальная машина, носитель — ISO Fedora (рис. @fig-boxes-iso). Система запущена в режиме Live (рис. @fig-boxes-live).
+  В Boxes создана виртуальная машина, носитель — ISO Fedora (@fig-boxes-iso). Система запущена в режиме Live (@fig-boxes-live).
 
   #figure(
     image("images/8_boxes_iso.png", width: 95%),
@@ -270,7 +270,7 @@
 
 + *Свойства виртуальной машины*
 
-  В свойствах задаются имя, число процессоров, память, предел диска, 3D-ускорение и разрешение фонового запуска (рис. @fig-boxes-props). Графиков загрузки нет: оперативный мониторинг Boxes не показывает.
+  В свойствах задаются имя, число процессоров, память, предел диска, 3D-ускорение и разрешение фонового запуска (@fig-boxes-props). Графиков загрузки нет: оперативный мониторинг Boxes не показывает.
 
   #figure(
     image("images/10_boxes_properties.png", width: 95%),
@@ -285,7 +285,7 @@
   ssh -p 2222 s413732@helios.cs.ifmo.ru
   ```
 
-  Открылась оболочка FreeBSD 14.5-STABLE (рис. @fig-helios).
+  Открылась оболочка FreeBSD 14.5-STABLE (@fig-helios).
 
   #figure(
     image("images/11_helios_ssh.png", width: 95%),
@@ -294,7 +294,7 @@
 
 + *Сетевой мост*
 
-  У Ubuntu адаптер 1 подключён как «Сетевой мост» (рис. @fig-bridge).
+  У Ubuntu адаптер 1 подключён как «Сетевой мост» (@fig-bridge).
 
   #figure(
     image("images/12_bridge.png", width: 95%),
@@ -303,7 +303,7 @@
 
 + *Удалённый рабочий стол*
 
-  Соседнего компьютера с Windows не было, поэтому по RDP открыт рабочий стол хоста: сервер `192.168.0.14`, пользователь `s1riys` (рис. @fig-rdp-profile, рис. @fig-rdp-laptop).
+  Соседнего компьютера с Windows не было, поэтому по RDP открыт рабочий стол хоста: сервер `192.168.0.14`, пользователь `s1riys` (@fig-rdp-profile, @fig-rdp-laptop).
 
   #figure(
     image("images/14_rdp_profile.png", width: 95%),
@@ -318,7 +318,7 @@
 == Работа с QEMU
 + *Установка QEMU и проверка KVM*
 
-  Установлены `qemu-system-x86`, `qemu-utils` и `cpu-checker`. Команда `kvm-ok` подтверждает доступность KVM (рис. @fig-kvm-ok), загружены модули `kvm_amd` и `kvm` (рис. @fig-kvm-lsmod).
+  Установлены `qemu-system-x86`, `qemu-utils` и `cpu-checker`. Команда `kvm-ok` подтверждает доступность KVM (@fig-kvm-ok), загружены модули `kvm_amd` и `kvm` (@fig-kvm-lsmod).
 
   #figure(
     image("images/19_kvm_ok.png", width: 95%),
@@ -339,7 +339,7 @@
   qemu-img create -f qcow2 ~/VM/Fedora-36.img 10G
   ```
 
-  Образ записан в `~/VM/Fedora-36.img` (рис. @fig-qemu-img).
+  Образ записан в `~/VM/Fedora-36.img` (@fig-qemu-img).
 
   #figure(
     image("images/17_qemu_img.png", width: 95%),
@@ -352,7 +352,7 @@
   qemu-system-x86_64 ~/VM/Fedora-36.img
   ```
 
-  На диске нет ОС, QEMU останавливается с сообщением `No bootable device` (рис. @fig-qemu-empty).
+  На диске нет ОС, QEMU останавливается с сообщением `No bootable device` (@fig-qemu-empty).
 
   #figure(
     image("images/18_qemu_empty.png", width: 95%),
@@ -363,7 +363,7 @@
 
 + *Установка гостевой ОС*
 
-  С диска `Fedora-36.img` и ISO Fedora 43 запущена установка (рис. @fig-qemu-install).
+  С диска `Fedora-36.img` и ISO Fedora 43 запущена установка (@fig-qemu-install).
 
   #figure(
     image("images/20_qemu_install.png", width: 95%),
@@ -372,14 +372,14 @@
 
 + *Команда запуска с полноэкранным режимом и MAC-адресом*
 
-  Запуск в полный экран с MAC-адресом `17:10:20:22:20:09` не удался: адрес multicast, QEMU его не назначает (рис. @fig-qemu-mac-fail).
+  Запуск в полный экран с MAC-адресом `17:10:20:22:20:09` не удался: адрес multicast, QEMU его не назначает (@fig-qemu-mac-fail).
 
   #figure(
     image("images/22_qemu_mac_fail.png", width: 95%),
     caption: [Отказ QEMU: MAC-адрес 17:10:20:22:20:09 — multicast],
   ) <fig-qemu-mac-fail>
 
-  С адресом `16:10:20:22:20:09` система загрузилась в полный экран (рис. @fig-qemu-mac-ok, рис. @fig-qemu-fedora).
+  С адресом `16:10:20:22:20:09` система загрузилась в полный экран (@fig-qemu-mac-ok, @fig-qemu-fedora).
 
   #figure(
     image("images/23_qemu_mac_ok.png", width: 95%),
@@ -394,7 +394,7 @@
 == Virtual Machine Manager
 + *Установка пакетов и настройка libvirt*
 
-  Установлены пакеты libvirt и virt-manager, пользователь добавлен в группу `libvirt` (рис. @fig-libvirt-install). Гостевая Ubuntu перезапущена, затем `kvm-ok` снова подтверждает KVM (рис. @fig-kvm-ok-2).
+  Установлены пакеты libvirt и virt-manager, пользователь добавлен в группу `libvirt` (@fig-libvirt-install). Гостевая Ubuntu перезапущена, затем `kvm-ok` снова подтверждает KVM (@fig-kvm-ok-2).
 
   #figure(
     image("images/24_libvirt_install.png", width: 95%),
@@ -406,7 +406,7 @@
     caption: [Повторная проверка kvm-ok],
   ) <fig-kvm-ok-2>
 
-  Служба `libvirtd` в состоянии `active (running)` (рис. @fig-libvirtd).
+  Служба `libvirtd` в состоянии `active (running)` (@fig-libvirtd).
 
   #figure(
     image("images/28_libvirtd.png", width: 95%),
@@ -415,14 +415,14 @@
 
 + *Создание виртуальной машины*
 
-  В мастере virt-manager создана машина `AKK-P3418`: Fedora, локальный ISO, 2048 МиБ, 2 процессора, диск 7 ГиБ (рис. @fig-vmm-new).
+  В мастере virt-manager создана машина `AKK-P3418`: Fedora, локальный ISO, 2048 МиБ, 2 процессора, диск 7 ГиБ (@fig-vmm-new).
 
   #figure(
     image("images/44_vmm_new.png", width: 95%),
     caption: [Параметры машины AKK-P3418 перед началом установки в virt-manager],
   ) <fig-vmm-new>
 
-  После запуска статус машины — `Running` (рис. @fig-vmm-vm).
+  После запуска статус машины — `Running` (@fig-vmm-vm).
 
   #figure(
     image("images/29_vmm_vm.png", width: 95%),
@@ -431,7 +431,7 @@
 
 + *Дополнительный жёсткий диск*
 
-  Добавлен второй диск объёмом 0,01 ГиБ, шина VirtIO (рис. @fig-disk-add). Это VirtIO Disk 2 размером 10,24 МиБ (рис. @fig-disk-added).
+  Добавлен второй диск объёмом 0,01 ГиБ, шина VirtIO (@fig-disk-add). Это VirtIO Disk 2 размером 10,24 МиБ (@fig-disk-added).
 
   #figure(
     image("images/30_disk_add.png", width: 95%),
@@ -445,11 +445,11 @@
 
 + *Настройки и оперативный мониторинг*
 
-  В окне машины слева задаётся оборудование: число процессоров и объём памяти, порядок загрузки, диски, сетевой адаптер, видео VirtIO, консоль SPICE, звук и USB (рис. @fig-vmm-vm). Оперативный мониторинг открывается на вкладке Performance: графики загрузки процессора и памяти, скорость чтения и записи диска, входящий и исходящий трафик и время работы машины.
+  В окне машины слева задаётся оборудование: число процессоров и объём памяти, порядок загрузки, диски, сетевой адаптер, видео VirtIO, консоль SPICE, звук и USB (@fig-vmm-vm). Оперативный мониторинг открывается на вкладке Performance: графики загрузки процессора и памяти, скорость чтения и записи диска, входящий и исходящий трафик и время работы машины.
 
 + *Снимки состояния*
 
-  Создан снимок `Before` (рис. @fig-snapshot-before). В гостевой системе установлен `btop` (рис. @fig-btop-install, рис. @fig-btop).
+  Создан снимок `Before` (@fig-snapshot-before). В гостевой системе установлен `btop` (@fig-btop-install, @fig-btop).
 
   #figure(
     image("images/32_snapshot_before.png", width: 95%),
@@ -466,7 +466,7 @@
     caption: [Загрузка гостевой системы в btop],
   ) <fig-btop>
 
-  Состояние сохранено снимком `With btop` (рис. @fig-snapshot-btop). После возврата к `Before` (рис. @fig-snapshot-restore) пакета `btop` в системе нет (рис. @fig-btop-gone).
+  Состояние сохранено снимком `With btop` (@fig-snapshot-btop). После возврата к `Before` (@fig-snapshot-restore) пакета `btop` в системе нет (@fig-btop-gone).
 
   #figure(
     image("images/35_snapshot_btop.png", width: 95%),
@@ -485,7 +485,7 @@
 
 + *Сетевые настройки гостевой машины*
 
-  Для адаптера доступны сеть `default` (NAT), мост, Macvtap и vDPA (рис. @fig-vmm-net).
+  Для адаптера доступны сеть `default` (NAT), мост, Macvtap и vDPA (@fig-vmm-net).
 
   #figure(
     image("images/38_vmm_network.png", width: 95%),
@@ -495,7 +495,7 @@
 == Управление из командной строки
 + *Команды virsh*
 
-  `virsh list` показывает запущенные домены, `virsh list --all` — все. Машина `AKK-P3418` в состоянии `shut off` (рис. @fig-virsh-list). Запуск `virsh start` показан ниже.
+  `virsh list` показывает запущенные домены, `virsh list --all` — все. Машина `AKK-P3418` в состоянии `shut off` (@fig-virsh-list). Запуск `virsh start` показан ниже.
 
   #figure(
     image("images/39_virsh_list.png", width: 95%),
@@ -513,7 +513,7 @@
 == Утилита virt-install
 + *Установка пакетов и список ОС*
 
-  Пакеты `virt-install` и `libosinfo-bin` уже установлены (рис. @fig-virt-install-apt). Списки Windows и Fedora сохранены в файлы (рис. @fig-os-win, рис. @fig-os-fedora).
+  Пакеты `virt-install` и `libosinfo-bin` уже установлены (@fig-virt-install-apt). Списки Windows и Fedora сохранены в файлы (@fig-os-win, @fig-os-fedora).
 
   ```bash
   osinfo-query os | grep -i windows | sort > windows_list.txt
@@ -537,7 +537,7 @@
 
 + *Создание виртуальной машины*
 
-  Домен `AKK_P3418` создан командой `virt-install` и запущен (рис. @fig-virt-install). Пул меньше 8 ГБ, поэтому указан `--check disk_size=off`.
+  Домен `AKK_P3418` создан командой `virt-install` и запущен (@fig-virt-install). Пул меньше 8 ГБ, поэтому указан `--check disk_size=off`.
 
   #figure(
     image("images/41_virt_install.png", width: 95%),
@@ -560,14 +560,14 @@
 
 + *Запуск, фоновый режим и подключение по SSH*
 
-  `virsh start AKK_P3418` запускает домен в фоне (рис. @fig-virsh-start).
+  `virsh start AKK_P3418` запускает домен в фоне (@fig-virsh-start).
 
   #figure(
     image("images/42_virsh_start.png", width: 95%),
     caption: [Фоновый запуск AKK_P3418 командой virsh start],
   ) <fig-virsh-start>
 
-  На гостевой системе включён `sshd`, пользователю `liveuser` задан пароль. С Ubuntu выполнено `ssh liveuser@192.168.122.57` (рис. @fig-ssh).
+  На гостевой системе включён `sshd`, пользователю `liveuser` задан пароль. С Ubuntu выполнено `ssh liveuser@192.168.122.57` (@fig-ssh).
 
   #figure(
     image("images/43_ssh.png", width: 95%),
